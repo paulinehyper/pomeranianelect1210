@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>환경설정</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: #fffbe7; }
+    .modal-content { min-width: 600px; min-height: 400px; margin: 40px auto; }
+  </style>
+</head>
+<body>
+    <div class="modal-content">
+      <div class="modal-title-row">
+        <span class="modal-title">이메일 연동 설정</span>
+        <span class="sync-status-modal" id="syncStatusModal">미연동!</span>
+      </div>
+      <form id="mailForm">
+      <div class="form-row">
+        <label>메일 종류</label>
+        <select id="mailType">
+          <option value="naver">Naver</option>
+          <option value="gmail">Gmail</option>
+          <option value="custom">사용자선택</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>연동 방식</label>
+        <select id="protocol">
+          <option value="imap-ssl">IMAP(SSL, 993)</option>
+          <option value="imap">IMAP(일반, 143)</option>
+          <option value="pop3-ssl">POP3(SSL, 995)</option>
+          <option value="pop3">POP3(일반, 110)</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>아이디</label>
+        <input type="text" id="mailId" required class="short-input" />
+      </div>
+      <div class="form-row">
+        <label>비밀번호</label>
+        <input type="password" id="mailPw" required class="short-input" />
+      </div>
+      <div class="form-row">
+        <button type="submit" class="connect-btn">연동하기</button>
+        <button type="button" id="viewEmailsBtn" class="connect-btn" style="margin-left:12px;opacity:0.5;pointer-events:none;">메일보기</button>
+      </div>
+    </form>
+  </div>
+  <script>
+    const form = document.getElementById('mailForm');
+    const syncStatus = document.getElementById('syncStatusModal');
+    const viewEmailsBtn = document.getElementById('viewEmailsBtn');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      syncStatus.textContent = '연동 중...';
+      syncStatus.style.color = '#e67e22';
+      const mailType = document.getElementById('mailType').value;
+      const protocol = document.getElementById('protocol').value;
+      const mailId = document.getElementById('mailId').value;
+      const mailPw = document.getElementById('mailPw').value;
+      try {
+        const result = await window.electronAPI.mailConnect({ mailType, protocol, mailId, mailPw });
+        syncStatus.textContent = result.message;
+        syncStatus.style.color = result.success ? '#27ae60' : '#e74c3c';
+        if(result.success) {
+          viewEmailsBtn.style.opacity = 1;
+          viewEmailsBtn.style.pointerEvents = 'auto';
+        }
+      } catch (err) {
+        syncStatus.textContent = '연동실패: ' + err.message;
+        syncStatus.style.color = '#e74c3c';
+      }
+    });
+    viewEmailsBtn.addEventListener('click', () => {
+      window.electronAPI.openEmails();
+    });
+  </script>
+</body>
+</html>

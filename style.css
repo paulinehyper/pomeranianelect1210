@@ -1,3 +1,118 @@
+.modal-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.short-input {
+  width: 120px;
+  min-width: 60px;
+  max-width: 160px;
+}
+.sync-status-modal {
+  font-size: 1em;
+  color: #e67e22;
+  font-weight: bold;
+  margin-bottom: 10px;
+  min-width: 80px;
+  text-align: left;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.settings-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0 2px;
+  margin-left: 2px;
+  border-radius: 4px;
+  transition: background 0.15s;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.settings-btn:hover {
+  background: #ffe9a7;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: #fffbe7;
+  border: 1.5px solid #e2c97b;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  padding: 24px 28px 18px 28px;
+  min-width: 320px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.modal-title {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #b48a00;
+  margin-bottom: 10px;
+}
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+.form-row label {
+  min-width: 70px;
+  color: #b48a00;
+  font-weight: bold;
+}
+.form-row input, .form-row select {
+  flex: 1;
+  padding: 5px 8px;
+  border: 1px solid #e2c97b;
+  border-radius: 5px;
+  font-size: 1em;
+  background: #fff;
+}
+.connect-btn {
+  background: #ffe9a7;
+  color: #b48a00;
+  border: 1px solid #e2c97b;
+  border-radius: 5px;
+  padding: 5px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: background 0.15s;
+}
+.connect-btn:hover {
+  background: #ffe07a;
+}
+.close-modal-btn {
+  background: #fff6c1;
+  color: #b48a00;
+  border: 1px solid #e2c97b;
+  border-radius: 5px;
+  padding: 5px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.close-modal-btn:hover {
+  background: #ffe9a7;
+}
 body {
   margin: 0;
   padding: 0;

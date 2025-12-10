@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>메일 목록</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: #fffbe7; }
+    .emails-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .emails-table th, .emails-table td { border: 1px solid #e1c97a; padding: 8px; font-size: 0.95em; }
+    .emails-table th { background: #ffe9a7; }
+    .emails-table tr:nth-child(even) { background: #fff6d6; }
+    .emails-table tr:hover { background: #ffe9a7; }
+    .emails-header { font-size: 1.2em; font-weight: bold; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="modal-content">
+    <div class="emails-header">저장된 메일 목록</div>
+    <table class="emails-table" id="emailsTable">
+      <thead>
+        <tr>
+          <th>수신일</th>
+          <th>제목</th>
+          <th>발신자</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- JS로 메일 목록 렌더링 -->
+      </tbody>
+    </table>
+  </div>
+  <script>
+    window.electronAPI.getEmails().then(emails => {
+      const tbody = document.getElementById('emailsTable').querySelector('tbody');
+      tbody.innerHTML = '';
+      emails.forEach(mail => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${mail.received_at}</td><td>${mail.subject}</td><td>${mail.from_addr}</td>`;
+        tr.title = mail.body ? mail.body.substring(0, 200) : '';
+        tbody.appendChild(tr);
+      });
+    });
+  </script>
+</body>
+</html>
