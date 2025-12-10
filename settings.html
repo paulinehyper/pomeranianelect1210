@@ -64,6 +64,9 @@
         document.getElementById('mailId').value = settings.mail_id || '';
         document.getElementById('mailPw').value = settings.mail_pw || '';
         document.getElementById('mailSince').value = settings.mail_since || '';
+        // 연동정보가 있으면 메일보기 버튼 활성화
+        viewEmailsBtn.style.opacity = 1;
+        viewEmailsBtn.style.pointerEvents = 'auto';
       }
     });
 
