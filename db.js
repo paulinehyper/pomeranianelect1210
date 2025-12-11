@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS todos (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   date TEXT NOT NULL,
   dday TEXT NOT NULL,
-  task TEXT NOT NULL
+  task TEXT NOT NULL,
+  memo TEXT DEFAULT ''
 );
 DELETE FROM todos;
 INSERT INTO todos (date, dday, task) VALUES ('12/30', 'D-100', '할일100');
@@ -17,7 +18,8 @@ CREATE TABLE IF NOT EXISTS emails (
   body TEXT,
   from_addr TEXT NOT NULL,
   todo_flag INTEGER DEFAULT 0,
-  unique_hash TEXT
+  unique_hash TEXT,
+  memo TEXT DEFAULT ''
 );
 
 CREATE TABLE IF NOT EXISTS mail_settings (

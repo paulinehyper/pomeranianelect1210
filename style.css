@@ -120,8 +120,9 @@ body {
   font-family: 'Segoe UI', 'Malgun Gothic', Arial, sans-serif;
 }
 
+/* 스케쥴 위젯 가로폭 확장 */
 .widget {
-  width: 300px;
+  width: 520px;
   min-height: 350px;
   background: #fffbe7;
   border: 1.5px solid #e2c97b;
@@ -175,11 +176,15 @@ body {
   background: #ffe9a7;
 }
 
+/* 스케쥴 리스트 가로폭 확장 */
 .schedule-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  min-width: 480px;
+  width: 100%;
 }
+/* 할일 카드 가로폭 확장 */
 .schedule-list li {
   display: flex;
   align-items: center;
@@ -189,6 +194,31 @@ body {
   border-radius: 6px;
   padding: 6px 10px;
   box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  min-width: 400px;
+  width: 100%;
+  word-break: break-all;
+/* 메모 입력란 스타일 개선 */
+.memo {
+  flex: 2;
+  min-width: 120px;
+  max-width: 220px;
+  margin-left: 10px;
+  font-size: 1em;
+  border: 1px solid #e2c97b;
+  border-radius: 4px;
+  background: #fffbe7;
+  resize: horizontal;
+  padding: 4px 6px;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+.memo[style*="display:none"] {
+  opacity: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
 }
 .date {
   color: #b48a00;

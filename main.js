@@ -8,6 +8,17 @@ let mainWindow = null;
 let settingsWindow = null;
 let emailsWindow = null;
 
+ipcMain.handle('save-memo', (event, id, memo) => {
+  // id가 'mail-123' 형태면 emails, 아니면 todos
+  if (typeof id === 'string' && id.startsWith('mail-')) {
+    const mailId = id.replace('mail-', '');
+    db.prepare('UPDATE emails SET memo = ? WHERE id = ?').run(memo, mailId);
+  } else {
+    db.prepare('UPDATE todos SET memo = ? WHERE id = ?').run(memo, id);
+  }
+  return { success: true };
+});
+
 ipcMain.handle('save-mail-settings', (event, settings) => {
   const stmt = db.prepare(`INSERT INTO mail_settings (mail_type, protocol, mail_id, mail_pw, mail_since) VALUES (?, ?, ?, ?, ?)`);
   stmt.run(settings.mailType, settings.protocol, settings.mailId, settings.mailPw, settings.mailSince);
@@ -47,11 +58,12 @@ ipcMain.on('open-emails', () => {
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 320,
+    width: 600,
+    minWidth: 320,
     height: 400,
     alwaysOnTop: true,
     frame: false,
-    resizable: false,
+    resizable: true,
     transparent: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
