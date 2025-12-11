@@ -44,4 +44,9 @@ function renderList(todos) {
 document.addEventListener('DOMContentLoaded', async () => {
   const todos = await fetchTodos();
   renderList(todos);
+  // 2초마다 자동 새로고침
+  setInterval(async () => {
+    const todos = await fetchTodos();
+    renderList(todos);
+  }, 2000);
 });

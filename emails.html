@@ -17,6 +17,10 @@
 <body>
   <div class="modal-content">
     <div class="emails-header">저장된 메일 목록</div>
+        <div style="margin: 10px 0; display: flex; gap: 10px;">
+          <button id="selectAllTodo" style="padding:4px 12px; background:#ffe07a; border:1px solid #e2c97b; border-radius:5px; cursor:pointer;">전체 To-Do 선택</button>
+          <button id="deselectAllTodo" style="padding:4px 12px; background:#fffbe7; border:1px solid #e2c97b; border-radius:5px; cursor:pointer;">전체 To-Do 해제</button>
+        </div>
     <table class="emails-table" id="emailsTable">
       <thead>
         <tr>
@@ -57,6 +61,23 @@
           renderEmails(emails);
         });
       });
+      // 전체 선택/해제 버튼 이벤트
+      document.getElementById('selectAllTodo').onclick = async () => {
+        const ids = emails.filter(m => m.todo_flag !== 1).map(m => m.id);
+        for (const id of ids) {
+          await window.electronAPI.setEmailTodoFlag(id, 1);
+        }
+        const updated = await window.electronAPI.getEmails();
+        renderEmails(updated);
+      };
+      document.getElementById('deselectAllTodo').onclick = async () => {
+        const ids = emails.filter(m => m.todo_flag !== 0).map(m => m.id);
+        for (const id of ids) {
+          await window.electronAPI.setEmailTodoFlag(id, 0);
+        }
+        const updated = await window.electronAPI.getEmails();
+        renderEmails(updated);
+      };
     }
     window.electronAPI.getEmails().then(renderEmails);
   </script>
